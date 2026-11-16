@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#080d19">
+<title>Hamburger Menu Animation</title>
+<style>
+:root{--bg:#080d19;--card:#0d1626;--line:#202b3d;--blue:#27b7ff;--text:#eef4ff;--muted:#8190a8}
+*{box-sizing:border-box}
+body{margin:0;background:#050914;color:var(--text);font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;padding:26px 16px 50px}
+h1{margin:0 auto 25px;text-align:center;font-size:clamp(24px,4vw,34px);letter-spacing:-.8px;color:#8abaff;text-shadow:0 0 14px #318cff66}
+.gallery{width:min(100%,760px);margin:auto;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+.card{border:1px solid #1e2a3d;border-radius:12px;overflow:hidden;background:var(--card);box-shadow:0 10px 28px #0005}
+.card h2{margin:0;padding:14px 16px;border-bottom:1px solid var(--line);font-size:13px;font-weight:700}
+.stage{height:150px;display:grid;place-items:center;background:#0c1524;position:relative}
+.menu-button{width:52px;height:48px;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:6px;border:0;background:transparent;cursor:pointer;position:relative;outline:none}
+.menu-button span{display:block;width:27px;height:3px;border-radius:3px;background:var(--blue);transition:transform .45s cubic-bezier(.68,-.55,.27,1.55),opacity .25s,width .35s;transform-origin:center}
+.menu-button:focus-visible{outline:2px solid #fff;outline-offset:5px;border-radius:6px}
+.code{margin:0;padding:15px 14px 17px;min-height:126px;background:#172235;color:#48bfff;font:10px/1.6 "SFMono-Regular",Consolas,monospace;white-space:pre-wrap;overflow-wrap:anywhere}
+.squeeze.open span:nth-child(1){transform:translateY(9px) rotate(45deg)}
+.squeeze.open span:nth-child(2){opacity:0}
+.squeeze.open span:nth-child(3){transform:translateY(-9px) rotate(-45deg)}
+.flip{perspective:1000px}
+.flip.open{transform-style:preserve-3d}
+.flip.open span:nth-child(1){transform:translateY(9px) rotate(45deg)}
+.flip.open span:nth-child(2){opacity:0}
+.flip.open span:nth-child(3){transform:translateY(-9px) rotate(-45deg)}
+.arrow.open span:nth-child(1){transform:rotate(-45deg) scaleX(.7) translate(-2px,4px)}
+.arrow.open span:nth-child(2){transform:scaleX(.7) translateX(-5px)}
+.arrow.open span:nth-child(3){transform:rotate(45deg) scaleX(.7) translate(-2px,-4px)}
+.slide.open span:nth-child(1){transform:translateY(9px) rotate(45deg)}
+.slide.open span:nth-child(2){transform:translateX(120%);opacity:0}
+.slide.open span:nth-child(3){transform:translateY(-9px) rotate(-45deg)}
+.plus.open span:nth-child(1){transform:translateY(9px) rotate(45deg)}
+.plus.open span:nth-child(2){opacity:0}
+.plus.open span:nth-child(3){transform:translateY(-9px) rotate(-45deg)}
+.hint{text-align:center;color:var(--muted);font-size:11px;margin:19px 0 0}
+@media(max-width:560px){body{padding:20px 11px 35px}.gallery{grid-template-columns:1fr;max-width:380px}.stage{height:140px}.code{min-height:0}}
+@media(prefers-reduced-motion:reduce){.menu-button span{transition:none}}
+</style>
+</head>
+<body>
+<h1>Hamburger Menu Animation</h1>
+<main class="gallery" id="gallery">
+<article class="card">
+<h2>Squeeze Animation</h2>
+<div class="stage"><button class="menu-button squeeze" aria-label="Toggle squeeze animation" aria-pressed="false"><span></span><span></span><span></span></button></div>
+<pre class="code">.btn-squeeze.open span:nth-child(1){
+  top: 19px;
+  transform: rotate(45deg);
+}
+.btn-squeeze.open span:nth-child(2){
+  opacity: 0;
+}
+.btn-squeeze.open span:nth-child(3){
+  bottom: 19px;
+  transform: rotate(-45deg);
+}</pre>
+</article>
+<article class="card">
+<h2>3D Flip Animation</h2>
+<div class="stage"><button class="menu-button flip" aria-label="Toggle 3D flip animation" aria-pressed="false"><span></span><span></span><span></span></button></div>
+<pre class="code">.btn-flip{
+  perspective:1000px;
+}
+.btn-flip.open{
+  transform:rotateY(180deg);
+}
+.btn-flip.open span:nth-child(1){
+  transform:translateY(19px)
+    rotate(45deg);
+}
+.btn-flip.open span:nth-child(2){
+  opacity:0;
+}
+.btn-flip.open span:nth-child(3){
+  transform:translateY(-19px)
+    rotate(-45deg);
+}</pre>
+</article>
+<article class="card">
+<h2>Arrow Animation</h2>
+<div class="stage"><button class="menu-button arrow" aria-label="Toggle arrow animation" aria-pressed="false"><span></span><span></span><span></span></button></div>
+<pre class="code">.btn-arrow.open span:nth-child(1){
+  transform:rotate(-45deg)
+    scaleX(.7)
+    translate(-2px, 4px);
+}
+.btn-arrow.open span:nth-child(3){
+  transform:rotate(45deg)
+    scaleX(.7)
+    translate(-2px, -4px);
+}</pre>
+</article>
+<article class="card">
+<h2>Slide Out Animation</h2>
+<div class="stage"><button class="menu-button slide" aria-label="Toggle slide out animation" aria-pressed="false"><span></span><span></span><span></span></button></div>
+<pre class="code">.btn-slide.open span:nth-child(1){
+  transform:translateY(19px)
+    rotate(45deg);
+}
+.btn-slide.open span:nth-child(2){
+  left:120px;
+  opacity:0;
+}
+.btn-slide.open span:nth-child(3){
+  transform:translateY(-19px)
+    rotate(-45deg);
+}</pre>
+</article>
+<article class="card">
+<h2>Plus Match Animation</h2>
+<div class="stage"><button class="menu-button plus" aria-label="Toggle plus match animation" aria-pressed="false"><span></span><span></span><span></span></button></div>
+<pre class="code">.btn-plus.open{
+  transform:rotate(45deg);
+}
+.btn-plus.open span:nth-child(1){
+  transform:translateY(19px)
+    rotate(90deg);
+}
+.btn-plus.open span:nth-child(3){
+  opacity:0;
+}</pre>
+</article>
+</main>
+<p class="hint">Click any hamburger icon to preview its animation. Click again to reset.</p>
+<script>
+document.querySelectorAll('.menu-button').forEach(button=>{
+  button.addEventListener('click',()=>{
+    const opened=button.classList.toggle('open');
+    button.setAttribute('aria-pressed',String(opened));
+  });
+});
+</script>
+</body>
+</html>
